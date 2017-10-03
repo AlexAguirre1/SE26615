@@ -1,5 +1,10 @@
 <?php
 $table = "<table>";
+for($rows = 1;$rows <= 9;$rows++) {
+    $table .= "\t<tr>";
+
+    $table .= "</tr>\n";
+}
 $table .= "</table>"
 ?>
 <!DOCTYPE html>
