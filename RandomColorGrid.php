@@ -1,3 +1,4 @@
+<?php
 $table = "<table>";
     $table = "<table>";
 
@@ -27,8 +28,8 @@ $table = "<table>";
     }
     }
     }
-    
 
+?>
     <!DOCTYPE html>
 <html lang="en">
 <head>
