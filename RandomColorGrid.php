@@ -6,7 +6,7 @@ $table = "<table>";
      $table.= "\t<tr>";
         for($col=0; $col <= 10; $col++)
          {
-            $table .= "<td style='background-color:$color;'>.$color."<br /><span style='color:#ffffff;'>".$color."</span>"</td>;"
+            $table .= "<td style='background-color:$color;'> . $color .". br."<span style='color:#ffffff;'>.$color.</span></td>";
          }
      $table .="</tr>\n";
     }
