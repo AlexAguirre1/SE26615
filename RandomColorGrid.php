@@ -6,39 +6,15 @@ $table = "<table>";
      $table.= "\t<tr>";
         for($col=0; $col <= 9; $col++)
          {
-
-            $table .= "<td style='background-color:$randNum;'>.$color.<span style='color:#ffffff;'>.$color.</span></td>";
+             $r = rand(25,255);
+             $g = rand(25,255); // this grabs a random number that is between 128-255 for the RGB, so random number for r then g and finally b.
+             $b = rand(25,255);
+             $color =  dechex($r) . dechex($g) . dechex($b);// this will allows the random numbers that was generated to be converted from decimal to hexadecimal.
+            $table .= "<td style='background-color: #$color;'>$color<span style='color:#ffffff;'>$color</span></td>"; // this will allow to make the change of the individual box into different colors that was generated. and it will also allow to display the rdg collor code/hexadecimal for the color.
          }
      $table .="</tr>\n";
     }
         $table .= "</table>";
-
-
-    function RandomColor()
-    {
-        $color = '#';
-        for ($i = 0; $i <= 9; $i++)
-        {
-        $randNum = rand(0,15);
-        switch ($randNum)
-            {
-            case 10: $randNum = 'A';
-            break;
-            case 11: $randNum = 'B';
-            break;
-            case 12: $randNum = 'C';
-            break;
-            case 13: $randNum = 'D';
-            break;
-            case 14: $randNum = 'E';
-            break;
-            case 15: $randNum = 'F';
-            break;
-            }
-            $color .= $randNum;
-        }
-        return $color;
-    }
 
 ?>
     <!DOCTYPE html>
@@ -48,7 +24,7 @@ $table = "<table>";
     <title>Title</title>
 </head>
 <body>
-<?php echo $table; ?>
+<?php echo $table; ?> <!-- This will allow the html to grab the php table and then display the table in the browser. -->
 
 </body>
 </html>
