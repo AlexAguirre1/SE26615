@@ -16,8 +16,12 @@
 </head>
 <body>
 <header>
+
     <nav>
 
+     <a href ="Assets/View.php">View</a>  <!-- allows to grab the view.php file from the assets folder to create a link-->
+
     </nav>
+
 </header>
 <section>

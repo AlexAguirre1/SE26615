@@ -5,11 +5,11 @@
  * Date: 10/18/2017
  * Time: 12:14 PM
  */
-function dbconn()
+function dbconn() // this creates a connection to connect to the database with a username and password.
 {
-    $dsn = "mysql:host=localhost;dbname=phpclasfall2017";
+    $dsn = "mysql:host=localhost;dbname=phpclassfall2017";
     $username = "PHPClassFall2017";
-    $password = "Alex120";
+    $password = "SE266";
     try {
         $db = new PDO($dsn, $username, $password);
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

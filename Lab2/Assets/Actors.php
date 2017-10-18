@@ -5,34 +5,21 @@
  * Date: 10/18/2017
  * Time: 12:25 PM
  */
-function getactorsAsTable($db)
+require_once ("Assets/dbconn.php");
+$db = dbconn();//allows connection to the database
+function  addActor($db, $firstname, $lastname, $dob, $height)
 {
     try
     {
-        $sql = $db->prepare("SELECT * FROM actors");
+        $sql = $db->prepare("INSERT INTO actors VALUES (null, :firstname, :lastname, :dob, :height)");//inserts/add a ne actore each time to form is filled out.
+        $sql->bindParam(':firstname', $firstname);
+        $sql->bindParam(':lastname', $lastname);
+        $sql->bindParam(':dob', $dob);
+        $sql->bindParam(':height', $height);
         $sql->execute();
-        $actors = $sql->fetchAll(PDO::FETCH_ASSOC);
-        if($sql->rowCount() > 0)
-        {
-            $table = "<table>" . PHP_EOL;
-            foreach($actors as $actor)
-            {
-                $table .= "<tr><td>" . $actor['firstname'];
-                $table .= "</td><td>" . $actor['lastname'];
-                $table .= "</td><td>" . $actor['dob'];
-                $table .= "</td><td>" . $actor['height'];
-                $table .= "</td></tr>";
-            }
-            $table .= "</table>" . PHP_EOL;
-        } else
-        {
-            $table ="No Actors found.";
-        }
-        return $table;
+        return $sql->rowCount();
     }catch(PDOException $e)
     {
-        die("There was a problem retrieving the Actor");
+        die($e);//will let me know if there is any errors specifically.
     }
-
-
 }
