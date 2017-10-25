@@ -32,8 +32,8 @@ function getCorpsInfoAsTable($db,$id)
                 $table .= "</td><td><label><b>Zip Code: </b></label>" . $corp['zipcode'];
                 $table .= "</td><td><label><b>Owner: </b></label>" . $corp['owner'];
                 $table .= "</td><td><label><b>Phone: </b></label>" . $corp['phone'];
-                $table .= "</td><td><form action='#' method='get' ><input type='hidden' name='id' value=Update><a href='UpdateCorp.php?id=".$corp['id']."'>Update</a> </form>";
-                $table .="</td><td><form action='#' method='get' value='Delete'><input type='hidden' name=Delete><a href='DeleteCorp.php?id=".$corp['id']."'>Delete</a> </form>";
+                $table .= "</td><td><form action='#' method='get' ><a href='Assets/UpdateCorp.php?id=". $corp['id'] ."'>Update</a> </form>";
+                $table .="</td><td><form action='#' method='get'><a href='Assets/DeleteCorp.php?id=". $corp['id'] ."'>Delete</a> </form>";
                 $table .= "</td><td><form action='#' methods='get'> <a href ='Assets/Read.php?id=". $corp['id'] ."'>Read</a></form>";
                 $table .= "</td></tr>";
             }

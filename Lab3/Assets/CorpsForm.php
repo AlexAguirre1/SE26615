@@ -20,14 +20,13 @@ switch ($action)
     case "Add":
         addCorp($db, $corp,  $email, $zipcode, $owner, $phone);// adds the actors.
         break;
-    /* case "Delete":
-         break;
+    /*
      case "Update":
          $corp = getCorpsInfoAsTable($db,$id);
          break;*/
 
 }
-echo(addCorp($db,$id));
+//echo(addCorp($db));
 ?>
 <form method="post" action="#">
     Company's Name: <input type="text" name="corp" value='' /><br />

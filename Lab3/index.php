@@ -7,7 +7,9 @@
  */
 require_once ("Assets/dbconn.php");
 
+
 $db = dbconn();
+
 
 include_once ("Assets/View.php");
 echo getCorpsAsTable($db);// displays the table.
