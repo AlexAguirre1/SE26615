@@ -7,11 +7,12 @@
  */
 ?>
 <form method="post" action="#">
-    Company's Name: <input type="text" name="corp" /><br />
-    Date: <input type="text" name="incorp_dt" /><br /><!-- these are text boxes that are created and allowing the user to see what they can enter in.-->
-    Email: <input type="text" name="email" />
-    Zipcode: <input type="text" name="zipcode" /><br />
-    Owner: <input type="text" name="owner" /><br />
-    Phone: <input type="text" name="phone" /><br />
+    Company's Name: <input type="text" name="corp" value='' /><br />
+    Email: <input type="text" name="email" value='' /><br />
+    Zipcode: <input type="text" name="zipcode" value='' /><br />
+    Owner: <input type="text" name="owner" value='' /><br />
+    Phone: <input type="text" name="phone" value=''/><br />
     <input type="submit" name="action" value="Add" />
+
 </form>
+<a href="..\index.php">Home</a>

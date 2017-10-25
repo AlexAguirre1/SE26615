@@ -1,3 +1,4 @@
+<a href="..\index.php">Home</a>
 <?php
 /**
  * Created by PhpStorm.
@@ -5,8 +6,10 @@
  * Date: 10/23/2017
  * Time: 1:34 PM
  */
+
 require_once ("dbconn.php");
 $db = dbconn();
+//include_once ("Lab3/index.php");
 function getCorpsInfoAsTable($db)
 {
     try
@@ -21,20 +24,20 @@ function getCorpsInfoAsTable($db)
             foreach($corps as $corp)
             {
                 //$table .= "<tr><td><label>id: </label>" . $corp['id'];
-                $table .= "<tr><td><label>Company: </label>" . $corp['corp'];
-                $table .= "</td><td><label>Date: </label>" . $corp['incorp_dt'];// will display the information.
-                $table .= "</td><td><label>Email: </label>" . $corp['email'];
-                $table .= "</td><td><label>Zip Code: </label>" . $corp['zipcode'];
-                $table .= "</td><td><label>Owner: </label>" . $corp['owner'];
-                $table .= "</td><td><label>Phone: </label>" . $corp['phone'];
-                $table .= "</td><td><form action='#' method='post'><input type='hidden'
-                name='id' value='" . $corp['id'] ."' /><input type ='submit' name='action' value='Edit' /> </form>";
-                $table .="</td><td><form action='#' method='post'><input type='hidden'
-                 name='". $corp['id'] ."' /><input type='submit' name='action' value='Delete' /></form>";
-                //$table
+                $table .= "<tr><td><label><b>Company: </b></label>" . $corp['corp'];
+                $table .= "</td><td><label><b>Date: </b></label>" . $corp['incorp_dt'];// will display the information.
+                $table .= "</td><td><label><b>Email: </b></label>" . $corp['email'];
+                $table .= "</td><td><label><b>Zip Code: </b></label>" . $corp['zipcode'];
+                $table .= "</td><td><label><b>Owner: </b></label>" . $corp['owner'];
+                $table .= "</td><td><label><b>Phone: </b></label>" . $corp['phone'];
+                $table .= "</td><td><form action='#' method='get' ><input type='hidden'
+                name='id' value='" . $corp['id'] ."' /><a href='UpdateCorp.php'>Update</a> </form>";
+                $table .="</td><td><form action='#' method='get' value='Delete'><input type='hidden'
+                 name='". $corp['id'] ."' /><a href='DeleteCorp.php'>Delete</a> </form>";
                 $table .= "</td></tr>";
             }
             $table .= "</table>" . PHP_EOL;
+
         } else
         {
             $table ="Nothing Found.";
@@ -47,3 +50,5 @@ function getCorpsInfoAsTable($db)
 
 }
 echo getCorpsInfoAsTable($db);// displays the table.
+?>
+

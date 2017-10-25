@@ -20,11 +20,11 @@ function getCorpsAsTable($db)
                 $table .= "<tr><td>" . $corp['corp'];
                 //$table .= "</td><td>" . $actor['lastname'];// will display the information.
                 //$table .= "</td><td>" . $actor['dob'];
-               $table .= "</td><td><form action='#' method='post'><input type='hidden'
-                name='id' value='" . $corp['id'] ."' /><input type ='submit' name='action' value='Edit' /> </form>";
-               $table .="</td><td><form action='#' method='post'><input type='hidden'
-                 name='". $corp['id'] ."' /><input type='submit' name='action' value='Delete' /> </form>";
-               $table .= "</td><td><form action='#' methods='post'> <a href =\"Assets/Read.php\">Read</a></form>";
+               $table .= "</td><td><form action='#' method='get' value='Update'><input type='hidden'
+                name='id' value='" . $corp['id'] ."' /><a href='UpdateCorp.php'>Update</a> </form>";
+               $table .="</td><td><form action='#' method='get' value='Delete'><input type='hidden'
+                 name='". $corp['id'] ."' /><a href='DeleteCorp.php'>Delete</a> </form>";
+               $table .= "</td><td><form action='#' methods='get'> <a href =\"Assets/Read.php\">Read</a></form>";
                 $table .= "</td></tr>";
             }
             $table .= "</table>" . PHP_EOL;
