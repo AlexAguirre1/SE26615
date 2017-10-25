@@ -10,7 +10,7 @@ function  addCorp($db, $corp, $email, $zipcode, $owner, $phone)
 {
     try
     {
-        $sql = $db->prepare("INSERT INTO corps VALUES (null, :corp, NOW(), :email, :zipcode, :owner, :phone)");//inserts/add a ne actore each time to form is filled out.
+        $sql = $db->prepare("INSERT INTO corps VALUES (null, :corp, now(), :email, :zipcode, :owner, :phone)");//inserts/add a ne actore each time to form is filled out.
         $sql->bindParam(':corp', $corp);
         $sql->bindParam(':email', $email);
         $sql->bindParam(':zipcode', $zipcode);
@@ -18,6 +18,7 @@ function  addCorp($db, $corp, $email, $zipcode, $owner, $phone)
         $sql->bindParam(':phone', $phone);
         $sql->execute();
         return $sql->rowCount(). "rows inserted.";
+
     }catch(PDOException $e)
     {
         die($e);//will let me know if there is any errors specifically.

@@ -5,7 +5,7 @@
  * Date: 10/24/2017
  * Time: 5:28 PM
  */
-require_once ("Assets/dbconn.php");
+require_once ("dbconn.php");
 $db = dbconn();
 
 $id = filter_input(INPUT_GET, 'id');
