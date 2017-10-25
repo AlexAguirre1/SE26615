@@ -25,7 +25,9 @@ switch ($action)
      case "Update":
          $corp = getCorpsInfoAsTable($db,$id);
          break;*/
+
 }
+echo(addCorp($db,$id));
 ?>
 <form method="post" action="#">
     Company's Name: <input type="text" name="corp" value='' /><br />
@@ -36,4 +38,5 @@ switch ($action)
     <input type="submit" name="action" value="Add" />
 
 </form>
+
 <a href="..\index.php">Home</a>

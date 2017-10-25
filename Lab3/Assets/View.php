@@ -20,8 +20,8 @@ function getCorpsAsTable($db)
                 $table .= "<tr><td>" . $corp['corp'];
                 //$table .= "</td><td>" . $actor['lastname'];// will display the information.
                 //$table .= "</td><td>" . $actor['dob'];
-               $table .= "</td><td><form action='#' method='get' value='Update'><input type='hidden'  name='Update' value=Update /><a href='UpdateCorp.php?id='" . $corp['id'] .">Update</a> </form>";
-               $table .="</td><td><form action='#' method='get' value='Delete'><input type='hidden' name='Delete' /><a href='DeleteCorp.php?id='". $corp['id'] .">Delete</a> </form>";
+               $table .= "</td><td><form action='#' method='get' ><input type='hidden'  name='Update' value=Update /><a href='UpdateCorp.php?id='" . $corp['id'] .">Update</a> </form>";
+               $table .="</td><td><form action='#' method='get' ><input type='hidden' name='Delete' /><a href='DeleteCorp.php?id='". $corp['id'] .">Delete</a> </form>";
                $table .= "</td><td><form action='#' methods='get'> <a href ='Assets/Read.php?id=". $corp['id'] ."'>Read</a></form>";
                 $table .= "</td></tr>";
             }
