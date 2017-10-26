@@ -17,7 +17,7 @@ function  addCorp($db, $corp, $email, $zipcode, $owner, $phone)
         $sql->bindParam(':owner', $owner);
         $sql->bindParam(':phone', $phone);
         $sql->execute();
-        return $sql->rowCount(). "rows inserted.";
+       echo($sql->rowCount(). "rows inserted.");
 
     }catch(PDOException $e)
     {

@@ -21,7 +21,7 @@ function getCorpsAsTable($db)
                 //$table .= "</td><td>" . $actor['lastname'];// will display the information.
                 //$table .= "</td><td>" . $actor['dob'];
                $table .= "</td><td><form action='#' method='get' ><a href='Assets/UpdateCorp.php?id=" . $corp['id'] ."'>Update</a> </form>";
-               $table .="</td><td><form action='#' method='get' ><a href='Assets/DeleteCorp.php?id=". $corp['id'] ."'>Delete</a> </form>";
+               $table .="</td><td><form action='#' method='get' ><a href='Assets/DeleteCorp.php?id=". $corp['id'] ."'>Delete</a> </form>";//puts a link next to each company name
                $table .= "</td><td><form action='#' methods='get'> <a href ='Assets/Read.php?id=". $corp['id'] ."'>Read</a></form>";
                 $table .= "</td></tr>";
             }

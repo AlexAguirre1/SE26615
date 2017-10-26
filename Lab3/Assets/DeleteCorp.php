@@ -16,7 +16,7 @@ function DeleteCorp($db,$id)
 {
     try
     {
-        $sql = $db->prepare("DELETE FROM corps WHERE id =:id");
+        $sql = $db->prepare("DELETE FROM corps WHERE id =:id");//this will delete everything that the id pulls.
         $sql->bindParam(':id', $id);
         $sql->execute();
         return $sql->rowCount(). "rows deleted";

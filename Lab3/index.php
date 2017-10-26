@@ -6,8 +6,6 @@
  * Time: 11:51 AM
  */
 require_once ("Assets/dbconn.php");
-
-
 $db = dbconn();
 
 

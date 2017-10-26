@@ -25,7 +25,6 @@ function getCorpsInfoAsTable($db,$id)
             $table = "<table>" . PHP_EOL;
             foreach($corps as $corp)
             {
-                //$table .= "<tr><td><label>id: </label>" . $corp['id'];
                 $table .= "<tr><td><label><b>Company: </b></label>" . $corp['corp'];
                 $table .= "</td><td><label><b>Date: </b></label>" . $corp['incorp_dt'];// will display the information.
                 $table .= "</td><td><label><b>Email: </b></label>" . $corp['email'];

@@ -21,9 +21,7 @@ switch ($action)
         addCorp($db, $corp,  $email, $zipcode, $owner, $phone);// adds the actors.
         break;
     /*
-     case "Update":
-         $corp = getCorpsInfoAsTable($db,$id);
-         break;*/
+     */
 
 }
 //echo(addCorp($db));
