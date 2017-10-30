@@ -47,6 +47,7 @@ function UpdateCorp($db, $id)
             }
             $table .= "</table>" . PHP_EOL;
 
+
         } else
         {
             $table ="Nothing Found.";
@@ -58,10 +59,11 @@ function UpdateCorp($db, $id)
     }
 
 }
+
 //echo UpdateCorp($db,$id);
 ?>
 <form method="post" action="#">
-    <label for='corp'>Company's Name: </label><input type="text" name='corp' value="<?php echo $corp['id']?>" /><br />
+    <label for='corp'>Company's Name: </label><input type="text" name='corp' value="<?php echo $corp['corp']?>" /><br />
     Email: <input type="text" name="email" value="<?php echo $corp['email']?>" /> <br />
     Zipcode: <input type="text" name="zipcode" value="<?php echo $corp['zipcode']?>" /><br />
     Owner: <input type="text" name="owner" value="<?php echo $corp['owner']?>" /><br />
