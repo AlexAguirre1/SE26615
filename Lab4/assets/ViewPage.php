@@ -54,4 +54,16 @@ function getCorpsInfoAsTable($db,$id)
 
 }
 echo getCorpsInfoAsTable($db,$id);// displays the table.
+function getCorpsAsSortedTable($db, $col, $dir) {
+    try {
+        $sql = "SELECT `corps`.`id`, `corps`.`corp`, `corps`.`incorp_dt`, `corps`.`email`, `corps`.`zipcode`, `corps`.`owner`, `corps`.`phone` FROM `corps` WHERE id=:id  ORDER BY $col $dir";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    } catch (PDOException $e) {
+        die ("There was a problem getting the table of employees");
+    }
+    return $employees;
+}
 ?>

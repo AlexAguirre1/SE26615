@@ -20,8 +20,11 @@ include_once ("assets/Header.php");
 include_once ("assets/Sort&Search.php");
 require_once ("assets/ViewPage.php");
 //echo getCorpsInfoAsTable($db,$id);
+
 switch($action)
 {
+    case "Reset":
+echo getCorpsInfoAsTable($db,$id);
     default:
         $cols = getColumnNames($db, 'corps');
 }
