@@ -6,7 +6,7 @@
  * Time: 10:11 PM
  */
 ?>
-<form method="get" action="#">
+<form method="get" action="">
     <label for="col">Sort Column by</label>
     <select name="col" id="col">
         <option value="id">id</option>
@@ -26,7 +26,7 @@
     <input type="submit" name="action" value="Reset">
 </form>
 
-<form method="get" action="#">
+<form method="get" action="">
     <label for="col">Search Column by</label>
     <select name="col" id="col">
         <option value="id">id</option>
@@ -37,7 +37,7 @@
         <option value="owner">owner</option>
         <option value="phone">phone</option>
     </select>
-    <label for="term" >term: </label>
+    <label for="term" >Term: </label>
     <input type="text" name="action" value="search">
     <input type="hidden" name="action" value="search">
     <input type="submit">

@@ -25,8 +25,20 @@ switch($action)
 {
     case "Reset":
 echo getCorpsInfoAsTable($db,$id);
+break;
+    case "sort":
+        $sortable = true;
+        getCorpsAsSortedTable($db, $col, $dir);
+        getColumnNames($db, 'corps');
+       echo getCorpsInfoAsTable($db, $id, $cols, $sortable);
+       break;
+
     default:
+        $sortable = true;
         $cols = getColumnNames($db, 'corps');
+        echo getCorpsInfoAsTable($db, $id, $cols, $sortable);
+        break;
+
 }
 
 include_once ("assets/Footer.php");

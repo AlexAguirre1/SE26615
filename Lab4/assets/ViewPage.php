@@ -16,7 +16,7 @@ $id=filter_input(INPUT_POST, 'id',FILTER_SANITIZE_STRING) ?? filter_input(INPUT_
 require_once ("dbconn.php");
 $db = dbconn();
 
-function getCorpsInfoAsTable($db,$id)
+function getCorpsInfoAsTable($db,$id,$cols = null,$sortable = false)
 {
     try
     {
@@ -27,6 +27,36 @@ function getCorpsInfoAsTable($db,$id)
         if($sql->rowCount() > 0)
         {
             $table = "<table>" . PHP_EOL;
+            if ($cols && !$sortable):
+                $table .= "\t<tr>";
+                foreach ($cols as $col) {
+                    $table .= "<th>" . $col['id'];
+                    $table .= "<th>" . $col['corp'];
+                    $table .= "<th>" . $col['incorp_dt'];
+                    $table .= "<th>" . $col['email'];// build column headers as anchors, indicating sort=asc&col=colname
+                    $table .= "<th>" . $col['Zipcode'];
+                    $table .= "<th>" . $col['owner'];
+                    $table .= "<th>" . $col['phone'];
+                    $table.="</th>";
+                }
+                $table .= "</tr>" . PHP_EOL;
+            endif;
+            /*if ($cols && $sortable):
+                $dir = "ASC";
+                $table .= "\t<tr>";
+                foreach ($cols as $col) {
+                    $table .= "<th>" . $col['id'] . $dir;
+                    $table .= "<th>" . $col['corp'] . $dir;
+                    $table .= "<th>" . $col['incorp_dt'] .$dir;
+                    $table .= "<th>" . $col['email'] . $dir;// build column headers as anchors, indicating sort=asc&col=colname
+                    $table .= "<th>" . $col['Zipcode'] .$dir;
+                    $table .= "<th>" . $col['owner'] . $dir;
+                    $table .= "<th>" . $col['phone'] . $dir;
+                    $table.="</th>";
+                }
+                $table .= "</tr>" . PHP_EOL;
+            endif;*/
+
             foreach($corps as $corp)
             {
                 $table .= "<tr><td><label><b>Company: </b></label>" . $corp['corp'];
@@ -54,16 +84,17 @@ function getCorpsInfoAsTable($db,$id)
 
 }
 echo getCorpsInfoAsTable($db,$id);// displays the table.
+
 function getCorpsAsSortedTable($db, $col, $dir) {
     try {
         $sql = "SELECT `corps`.`id`, `corps`.`corp`, `corps`.`incorp_dt`, `corps`.`email`, `corps`.`zipcode`, `corps`.`owner`, `corps`.`phone` FROM `corps` WHERE id=:id  ORDER BY $col $dir";
         $stmt = $db->prepare($sql);
         $stmt->execute();
-        $employees = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $corps = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     } catch (PDOException $e) {
         die ("There was a problem getting the table of employees");
     }
-    return $employees;
+    return $corps;
 }
 ?>
