@@ -5,7 +5,8 @@
  * Date: 10/29/17
  * Time: 5:36 PM
  */
-function getEmployeesAsTable($db, $employees, $cols = null,$sortable = false) {
+function getEmployeesAsTable($db, $employees, $cols = null,$sortable = false)
+{
     setlocale(LC_MONETARY, 'en_US.UTF-8');
     $table = "";
     if ( count($employees) > 0 ):
@@ -34,11 +35,11 @@ function getEmployeesAsTable($db, $employees, $cols = null,$sortable = false) {
             $table .= "<td>" . $employee['last_name'] . "</td>";
             $table .= "<td>" . date('m/d/Y', strtotime($employee['hire_date']) ) . "</td>";
             $table .= "<td>";
-            if ( strtotime($employee['term_date']) > 0 ) :
-                $table .= date('m/d/Y', strtotime($employee['term_date']) );
-            else :
-                $table .= "&nbsp;";
-            endif;
+            //if ( strtotime($employee['term_date']) > 0 ) :
+             //   $table .= date('m/d/Y', strtotime($employee['term_date']) );
+           // else :
+           //     $table .= "&nbsp;";
+          //  endif;
             $table .= "</td>";
             $table .= "<td>" . $employee['salary']. "</td>";
             $table .= "</tr>" . PHP_EOL;
