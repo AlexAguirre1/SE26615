@@ -19,28 +19,28 @@ $db = dbconn();
 
 
 include_once ("assets/Header.php");
-include_once ("assets/Sort&Search.php");
+//include_once ("assets/Sort&Search.php");
 require_once ("assets/corps.php");
 require_once ("assets/ViewPage.php");
 //echo getCorpsInfoAsTable($db,$id);
 
 switch($action)
 {
-    case "Reset":
+    /*case "Reset":
 echo getCorpsInfoAsTable($db,$id);
-break;
+break;*/
     case "sort":
         $sortable = true;
         getCorpsAsSortedTable($db, $col, $dir);
         getColumnNames($db, 'corps');
-       echo getCorpsInfoAsTable($db, $id, $cols, $sortable);
+       echo getCorpsInfoAsTable($db, $corps, $cols, $sortable);
        break;
 
     default:
         $sortable = true;
         $corps= getCorps($db);
         $cols = getColumnNames($db, 'corps');
-        echo getCorpsInfoAsTable($db, $id, $cols, $sortable);
+        echo getCorpsInfoAsTable($db, $corps, $cols, $sortable);
         break;
 
 }
