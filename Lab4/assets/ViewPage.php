@@ -12,9 +12,9 @@ $zipcode=filter_input(INPUT_POST, 'zipcode', FILTER_SANITIZE_STRING) ?? "";
 $owner=filter_input(INPUT_POST, 'owner', FILTER_SANITIZE_STRING) ?? "";
 $phone=filter_input(INPUT_POST, 'phone', FILTER_SANITIZE_STRING) ?? "";*/
 //$id=filter_input(INPUT_POST, 'id',FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'id',FILTER_SANITIZE_STRING) ?? "";
-$dir = filter_input(INPUT_POST, 'dir', FILTER_VALIDATE_REGEXP,
+/*$dir = filter_input(INPUT_POST, 'dir', FILTER_VALIDATE_REGEXP,
         array("options"=>array("regexp"=>'/^[ASC,DESC]$/') )
-    ) ?? "";
+    ) ?? "";*/
 require_once ("dbconn.php");
 require_once ("corps.php");
 $db = dbconn();
@@ -25,7 +25,16 @@ function getCorpsInfoAsTable($db, $corps, $cols = null, $sortable = false)
     $table = "";
     if (count($corps) > 0):
         $table .= "<table>" . PHP_EOL;
-        if ($cols && !$sortable):
+        if ($cols)
+        {
+            $table .= "<tr>";
+            foreach ($cols as $col)
+            {
+                $table .= "<th>$col</th>";
+            }// End of Foreach
+            $table .= "</tr>" . PHP_EOL;
+        }
+        /*if ($cols && !$sortable):
             $table .= "\t<tr>";
             foreach ($cols as $col):
 
@@ -39,9 +48,9 @@ function getCorpsInfoAsTable($db, $corps, $cols = null, $sortable = false)
                 //$table .= "</th>";
             endforeach;
             $table .= "</tr>" . PHP_EOL;
-        endif;
+        endif;*/
        //$sql = "SELECT * FROM corps WHERE id=:id";
-        if (isset($_GET['dir']) && $sortable):
+       /* if (isset($_GET['dir']) && $sortable):
             if($_GET['dir'] == 'ASC') $sql .= "ORDER BY corps ASC";
             if($_GET['dir'] == 'DESC') $sql .= "ORDER BY corps DESC";
             //$dir = "ASC";
@@ -55,10 +64,11 @@ function getCorpsInfoAsTable($db, $corps, $cols = null, $sortable = false)
                 $table .= "<th>" . $col['owner'] . "</th>";
                 $table .= "<th>" . $col['phone'] . "</th>";
             }
-            $table .= "</tr>" . PHP_EOL;*/
-        endif;
+            $table .= "</tr>" . PHP_EOL;
+        endif;*/
         foreach ($corps as $corp):
             $table .= "\t<tr>";
+            $table .= "<td>" . $corp['id'] . "</td>";
             $table .= "<td>" . $corp['corp'] . "</td>";
             $table .= "<td>" . date('m/d/Y', strtotime($corp['incorp_dt'])) . "</td>";// will display the information.
             $table .= "<td>" . $corp['email'] . "</td>";
@@ -77,7 +87,7 @@ function getCorpsInfoAsTable($db, $corps, $cols = null, $sortable = false)
     endif;
 }
 ?>
-<form method="get" action="">
+<!--<form method="get" action="">
 <label for="col">Sort Column by</label>
 <select name="col" id="col">
     <option value="id">id</option>
@@ -113,4 +123,5 @@ function getCorpsInfoAsTable($db, $corps, $cols = null, $sortable = false)
     <input type="hidden" name="action" value="search">
     <input type="submit">
     <input type="submit" name="action" value="Reset">
-</form>
+</form>-->
+
