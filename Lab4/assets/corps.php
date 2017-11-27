@@ -67,8 +67,6 @@ function SearchCorp($db, $SearchCol, $search)
         }*/
         foreach ($corps as $corp) {
             $table .= "<tr><td>" . $corp['corp'];
-            //$table .= "</td><td>" . $actor['lastname'];// will display the information.
-            //$table .= "</td><td>" . $actor['dob'];
             $table .= "</td><td><form action='#' method='get' ><a href='assets/UpdateCorp.php?id=" . $corp['id'] . "'>Update</a> </form>";
             $table .= "</td><td><form action='#' method='get' ><a href='assets/DeleteCorp.php?id=" . $corp['id'] . "'>Delete</a> </form>";//puts a link next to each company name
             $table .= "</td><td><form action='#' method='get'> <a href ='assets/Read.php?id=" . $corp['id'] . "'>Read</a></form>";
