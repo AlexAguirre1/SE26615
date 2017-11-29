@@ -5,6 +5,8 @@
  * Date: 11/27/2017
  * Time: 12:04 PM
  */
+require_once ("assets/dbconn.php");
+$db = dbconn();
 $action= filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING) ?? "";
 $website = filter_input( INPUT_POST, 'website',FILTER_SANITIZE_STRING ) ?? "";
 switch ($action)
@@ -12,8 +14,6 @@ switch ($action)
     case "Add":
        AddUrl($db,$website);
         break;
-    /*
-     */
 
 }
 function AddUrl($db,$website)
@@ -30,7 +30,7 @@ function AddUrl($db,$website)
         die($e);//will let me know if there is any errors specifically.
     }
 }
-$website = $websiteErr ="";
+$website = $websiteErr = "";
 if (empty($_POST["website"]))
 {
     $website = "";
@@ -52,6 +52,6 @@ function test_input($data) {
 
 ?>
 <form method="post" action="#">
-    Enter URL: <input type="text" name="website" value='' /><?php echo $websiteErr;?><br />
+    Enter URL: <input type="text" name="website" value='' /> <?php echo $websiteErr;?> <br />
     <input type="submit" name="action" value="Add" />
 </form>
