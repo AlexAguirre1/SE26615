@@ -12,6 +12,14 @@ $action= filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING) ?? "";
 $site = filter_input( INPUT_POST, 'site',FILTER_SANITIZE_STRING ) ?? "";
 $sites = filter_input( INPUT_POST, 'sites',FILTER_SANITIZE_STRING ) ?? "";
 
+/*function addingForm()
+{
+    $form = "<form method='post' action='#'>";
+    $form .= "URL: <input type='text' name='site' /> <br />" . PHP_EOL;
+    $form .=  "<input type='submit' name='action' value='Save' />" . PHP_EOL;
+    $form .= "</form>";
+    return $form;
+}
 function AddUrl($db,$site, $sites, $date)
 {
     try
@@ -32,7 +40,7 @@ function AddUrl($db,$site, $sites, $date)
 
     }catch(PDOException $e)
     {
-        die($e);//will let me know if there is any errors specifically.
+        die($e);//will let me know if there is any errors.
     }
 }
 function websiteValid($db,$site,$sites, $date)
@@ -62,7 +70,7 @@ function websiteValid($db,$site,$sites, $date)
     }
 }
 
-/*$website = $websiteErr = "";
+$website = $websiteErr = "";
 if (empty($_POST["website"]))
 {
     $website = "";
@@ -79,6 +87,6 @@ if (empty($_POST["website"]))
 
 ?>
 <form method="post" action="#">
-    Enter URL: <input type="text" name="website" value='' /> <br />
+    Enter URL: <input type="text" name="site" /> <br />
     <input type="submit" name="action" value="Add" />
 </form>
