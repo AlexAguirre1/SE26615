@@ -5,7 +5,7 @@
  * Date: 11/29/2017
  * Time: 1:35 PM
  */
-function getUrl($db)
+function getUrl($db)//grabbing the url
 {
     try
     {
@@ -19,7 +19,7 @@ function getUrl($db)
     }
     return $Url;
 }
-function getSiteLinks($db)
+/*function getSiteLinks($db)
 {
     try
     {
@@ -38,7 +38,7 @@ function test_input($data) {
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
     return $data;
-}
+}*/
 function DropDown($db)
 {
     try
@@ -50,11 +50,12 @@ function DropDown($db)
 
      if($sql->rowCount() > 0)
      {
-         $dropDown = "<option value=''>Choose</option>" . PHP_EOL;
+         $dropDown = "<option value='dropL'>" . PHP_EOL;
          foreach ($websites as $website)
          {
              $dropDown .="<option value='" . $website['site'] . "'> </option>";
          }
+         $dropDown .="</option>";
      }
      else
      {
@@ -67,21 +68,20 @@ function DropDown($db)
         die($e);
     }
 }
-function websiteValid($db, $website)
+function websiteF($db, $site)
 {
-    try
-    {
-        $sql = $db-> prepare("SELECT * FROM sites WHERE 'site' LIKE '%website%'");
+    try {
+        $sql = $db->prpare("SELECT Count(*) FROM sites WHERE site=:site");
+        $sql->bindParam(':site', $site);
         $sql->execute();
-        $url = $sql->fetchALL(PDO::FETCH_ASSOC);
-
-        if (count($url) > 0)
-        {
-            echo("This has been already inserted");
-        }
-        else
-        {
-            $key =
-        }
+        $rowN = $sql->fetchColumn();
+        return $rowN;
     }
+    catch(PDOException $e)
+    {
+        die($e);
+    }
+}function getWebsite()
+{
+    
 }

@@ -6,25 +6,62 @@
  * Time: 12:04 PM
  */
 require_once ("dbconn.php");
+require_once ("Functions.php");
 $db = dbconn();
 $action= filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING) ?? "";
-$website = filter_input( INPUT_POST, 'website',FILTER_SANITIZE_STRING ) ?? "";
+$site = filter_input( INPUT_POST, 'site',FILTER_SANITIZE_STRING ) ?? "";
+$sites = filter_input( INPUT_POST, 'sites',FILTER_SANITIZE_STRING ) ?? "";
 
-function AddUrl($db,$website)
+function AddUrl($db,$site, $sites, $date)
 {
     try
     {
-        $sql = $db->prepare("INSERT INTO sites VALUES (null, :website)");//inserts/add a ne actore each time to form is filled out.
-        $sql->bindParam(':website', $website);
+        $sql = $db->prepare("INSERT INTO sites SET site =:site, date =: date");//inserts/add a ne actore each time to form is filled out.
+        $sql->bindParam(':site', $site);
+        $sql->bindParam(':date', $date);
         $sql->execute();
-        $key = $db->lastInsertId();
-        return $key;
+        $urlID = $db->lastInsertId();
+        foreach($sites as $link) {
+            $sql = $db->prepare("INSERT INTO sitlinks VALUES (:site_id, :link)");
+            $sql->bindParam(':link', $link);
+            $sql->bindParam(':site_id', $urlID);
+            $sql->execute();
+
+        }
+        return $sql->rowCount();
 
     }catch(PDOException $e)
     {
         die($e);//will let me know if there is any errors specifically.
     }
 }
+function websiteValid($db,$site,$sites, $date)
+{
+    if (isset($_POST['site'])) {
+        if (empty($_POST['site'])) {
+            echo "must enter in in a website.";
+        } else if (!preg_match("/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/", $_POST['site'])) {
+            echo "this is not a valid website";
+
+        } else {
+            $rowN = websiteF($db, $site);
+            if ($rowN == 0) {
+                $sites = array();
+                $files = file_get_contents($_POST['site']);
+                preg_match_all("/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/", $files, $similars, PREG_OFFSET_CAPTURE);
+                foreach ($similars as $same)
+                {
+                    array_push($sites, $same[0]);
+                echo "<a href='" . $same[0] . "'>" . $same[0] . "</a>";
+            }
+            }
+        }
+        AddUrl($db, $site, $sites, $date);
+    } else {
+        echo "This website has been enter already!";
+    }
+}
+
 /*$website = $websiteErr = "";
 if (empty($_POST["website"]))
 {

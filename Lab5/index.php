@@ -9,14 +9,18 @@
 require_once ("assets/dbconn.php");
 $db = dbconn();
 $action= filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING) ?? "";
-$website = filter_input( INPUT_POST, 'website',FILTER_SANITIZE_STRING ) ?? "";
+$site = filter_input( INPUT_POST, 'site',FILTER_SANITIZE_STRING ) ?? "";
+$sites = filter_input( INPUT_POST, 'sites',FILTER_SANITIZE_STRING ) ?? "";
+$date =
+
 
 include_once ("assets/Header.php");
 require_once ("assets/AddURL.php");
 switch ($action)
 {
     case "Add":
-        AddUrl($db,$website);
+        AddUrl($db,$site,$site, $date);
+        $date = date_creat('now')->format('M-d-Y H:i:s');
         break;
 
 }
