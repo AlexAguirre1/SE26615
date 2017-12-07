@@ -19,13 +19,13 @@ require_once ("dbconn.php");
 require_once ("corps.php");
 $db = dbconn();
 
-function getCorpsInfoAsTable($db, $corps, $cols = null, $sortable = false)
+function getCorpsInfoAsTable($db,$columnN, $corps, $cols = null, $sortable = false)
 {
     setlocale(LC_MONETARY, 'en_US.UTF-8');
     $table = "";
     if (count($corps) > 0):
         $table .= "<table>" . PHP_EOL;
-        if ($cols)
+        if ($cols && ($sortable == null || $sortable =="ASC"))
         {
             $table .= "<tr>";
             foreach ($cols as $col)
