@@ -22,7 +22,7 @@ function dbconn() // this creates a connection to connect to the database with a
 function getColumnNames($db, $tbl)
 {
 
-    $sql = "select column_name from information_schema.columns where lower(table_name)=lower('". $tbl . "')";
+    $sql = "select column_name from information_schema.columns where lower(table_name)=lower('". $tbl . "')";//should get the column
     $stmt = $db->prepare($sql);
     try {
         if($stmt->execute()):

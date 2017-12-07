@@ -6,7 +6,7 @@
  * Time: 12:16 PM
  */
 
-function  addCorp($db, $corp, $email, $zipcode, $owner, $phone)
+function  addCorp($db, $corp, $email, $zipcode, $owner, $phone)// will add the corp
 {
     try
     {

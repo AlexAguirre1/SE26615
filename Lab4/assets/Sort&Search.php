@@ -5,6 +5,7 @@
  * Date: 11/4/2017
  * Time: 10:11 PM
  */
+//This page sets the form of the sort and search
 require_once ("dbconn.php");
 require_once ("corps.php");
 $db = dbconn();
@@ -12,7 +13,7 @@ $cols = getColumnNames($db, 'corps');
 $dropD= DropDown($cols)
 ?>
 
-<form method="get" action="#">
+<form method="get" action="#"><!-- sort form-->
     <label for="col">Sort Column by</label>
     <select name="col">
         <?php echo $dropD ?>
@@ -26,7 +27,7 @@ $dropD= DropDown($cols)
     <input type="submit" name="action" value="Reset">
 </form>
 
-<form method="get" action="#">
+<form method="get" action="#"><!--search form -->
     <label>Search Column by</label>
     <select name="SearchCol">
         <?php echo $dropD ?>

@@ -8,7 +8,7 @@
 //require_once ("dbconn.php");
 //$db = dbconn();
 $id=filter_input(INPUT_POST, 'id',FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'id',FILTER_SANITIZE_STRING) ?? "";
-
+//this page has functions for sort, search, getting corp table etc..
 function getCorps($db)
 {
     try
@@ -24,27 +24,8 @@ function getCorps($db)
     return $corps;
 }
 
-function getCorpsAsSortedTable($db, $col, $dir) {
-    try {
-        if($col == NULL)
-        {
-            $col = "id";
-        }
-        if($dir == NUll)
-        {
-            $dir = "ASC";
-        }
-        $sql = "SELECT * FROM corps ORDER BY $col $dir";
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        $corps = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    }catch (PDOException $e) {
-        die ("There was a problem getting the table of employees");
-    }
-    return $corps;
-}
-function SearchCorp($db, $SearchCol, $search)
+function SearchCorp($db, $SearchCol, $search)// function to search
 {
     try
     {
@@ -55,7 +36,7 @@ function SearchCorp($db, $SearchCol, $search)
         $sql = "SELECT * FROM corps WHERE $SearchCol LIKE '%$search%'";
         $stmt = $db->prepare($sql);
         $stmt->execute();
-        $corps = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $corps = $stmt->fetchALL(PDO::FETCH_ASSOC);
         $table = "<table>" . PHP_EOL;
         $table .= "<tr><td>" . $stmt->rowCount() . " Records Found.</td></tr>" . PHP_EOL;
        /* if ($cols) {
@@ -75,12 +56,12 @@ function SearchCorp($db, $SearchCol, $search)
         $table .= "</table>" . PHP_EOL;
         return $table;
     }
-catch (PDOException $e)
+    catch (PDOException $e)
     {
         die ($e);
     }
 }
-function SearchAllCorp($db, $cols, $SearchCol, $search)
+function SearchAllCorp($db, $cols, $SearchCol, $search)//function to grab everything that is searched
 {
     try
     {
@@ -125,7 +106,7 @@ function SearchAllCorp($db, $cols, $SearchCol, $search)
         die ($e);
     }
 }
-function DropDown($cols)
+function DropDown($cols)// create a dropdown with the columns.
 {
     $form =  "<option value=''> --Select--</option>" . PHP_EOL;
     foreach($cols as $col)
