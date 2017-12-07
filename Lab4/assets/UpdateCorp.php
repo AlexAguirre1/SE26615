@@ -5,7 +5,7 @@
  * Date: 10/24/2017
  * Time: 5:27 PM
  */
-/*my update does not work but i feel like i was close, i did my best to try to figure it out*/
+
 $id =filter_input(INPUT_POST, 'id',FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'id',FILTER_SANITIZE_STRING) ?? "";
 require_once ("dbconn.php");
 require_once("AddCorps.php");
@@ -22,7 +22,7 @@ switch($action) {
         $corp = UpdateCorp($db, $corp, $email, $zipcode, $owner, $phone, $id);
         break;
 }
-function UpdateCorp($db, $corp, $email, $zipcode, $owner, $phone, $id)
+function UpdateCorp($db, $corp, $email, $zipcode, $owner, $phone, $id)// will update the any information that is given
 {
 
     try

@@ -36,9 +36,8 @@ switch($action)
         break;
     case 'sort':
         $sortable = true;
-        getCorpsAsSortedTable($db, $col, $dir);
-        getColumnNames($db, 'corps');
-       echo getCorpsInfoAsTable($db, $corps, $cols, $sortable);
+        $cols = getColumnNames($db, 'corps');
+       echo getCorpsInfoAsTable($db, $cols, $col, $dir);
        break;
     case 'search':
         $cols = getColumnNames($db, 'corps');
