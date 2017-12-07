@@ -24,11 +24,10 @@ switch ($action)
 {
     case 'Add':
        // AddUrl($db,$site,$site, $date);
-       //echo addingForm();
         if(isPostRequest())
         {
-            $date = date_create('now')->format('M-d-Y H:i:s');
-            $form = websiteValid($db,$site,$sites, $date);
+            $date = date_create('now')->format('M-d-Y');
+             websiteValid($db,$site,$sites, $date);
         }
         break;
 

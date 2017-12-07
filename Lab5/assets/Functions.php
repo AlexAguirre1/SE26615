@@ -5,6 +5,7 @@
  * Date: 11/29/2017
  * Time: 1:35 PM
  */
+//my Validation does not work i tried different patterns to valid the url but nothing works and it is late so i rather hadn in what is working so far
 //require_once ("AddURL.php");
 function getUrl($db)//grabbing the url
 {
@@ -13,12 +14,12 @@ function getUrl($db)//grabbing the url
         $sql = "SELECT * FROM sites";
         $stmt = $db->prepare($sql);
         $stmt->execute();
-        $sites = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $websites = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }catch (PDOException $e)
     {
         die($e);
     }
-    return $sites;
+    return $websites;
 }
 /*function getSiteLinks($db)
 {
@@ -40,15 +41,8 @@ function test_input($data) {
     $data = htmlspecialchars($data);
     return $data;
 }*/
-/*function addingForm()
-{
-    $form = "<form method='post' action='#'>";
-    $form .= "URL: <input type='text' name='site' /> <br />" . PHP_EOL;
-    $form .=  "<input type='submit' name='action' value='Save' />" . PHP_EOL;
-    $form .= "</form>";
-    return $form;
-}*/
-function AddUrl($db,$site, $sites, $date)
+
+function AddUrl($db,$site, $websites, $date)// can insert/add the url
 {
     try
     {
@@ -57,7 +51,7 @@ function AddUrl($db,$site, $sites, $date)
         $sql->bindParam(':date', $date);
         $sql->execute();
         $urlID = $db->lastInsertId();
-        foreach($sites as $link) {
+        foreach($websites as $link) {
             $sql = $db->prepare("INSERT INTO sitelinks VALUES (:site_id, :link)");
             $sql->bindParam(':link', $link);
             $sql->bindParam(':site_id', $urlID);
@@ -69,51 +63,50 @@ function AddUrl($db,$site, $sites, $date)
         die($e);//will let me know if there is any errors.
     }
 }
-function websiteValid($db,$site,$sites, $date)
+function websiteValid($db, $site, $websites, $date)// this is my validation function it does not work it is funky when it comes to validating an email
 {
     if (isset($_POST['site'])) {
         if (empty($_POST['site'])) {
-            echo "must enter in in a website.";
+            echo "must enter in a website. Example would be https://www.amazon.com/";
         } else if (!preg_match("/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/", $_POST['site'])) {
-            echo "this is not a valid website";
+            echo "this is not a valid website.Example would be https://www.amazon.com/";
 
         } else {
             $rowN = websiteF($db, $site);
             if ($rowN == 0) {
-                $sites = array();
+                $websites = array();
                 $files = file_get_contents($_POST['site']);
-                preg_match_all("/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/", $files, $similars, PREG_OFFSET_CAPTURE);
-                foreach ($similars as $same)
+                preg_match_all("/(https?:\/\/[\da-z\.-]+\.[a-z\.]{2,6}[\/\w \.-]+)/", $files, $similar, PREG_OFFSET_CAPTURE);
+                foreach ($similar as $same)
                 {
                     foreach($same as $s) {
-                        array_push($sites, $s[0]);
+                        array_push($websites, $s[0]);
                         echo "<a href='" . $s[0] . "'>" . $s[0] . "</a>";
                     }
                 }
             }
         }
-        AddUrl($db, $site, $sites, $date);
+        AddUrl($db, $site, $websites, $date);
     } else {
         echo "This website has been enter already!";
     }
 }
-function DropDown($db)
+function DropList($db)//creates the drop down list of the saved emails
 {
     try
     {
-        $sql = "SELECT * FROM sites";
-        $stmt = $db->prepare($sql);
-        $stmt->execute();
-        $websites = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+        $sql = $db->prepare("SELECT * FROM sites");
+        //$sql = $db->prepare($sql);
+        $sql->execute();
+        $websites = $sql->fetchALL(PDO::FETCH_ASSOC);
      if($sql->rowCount() > 0)
      {
-         $dropDown = "<option value='dropL'>" . PHP_EOL;
+         $dropDown = "<select name='list'>" . PHP_EOL;
          foreach ($websites as $website)
          {
-             $dropDown .="<option value='" . $website['site'] . "'> </option>";
+             $dropDown .="<option value='" . $website['site'] . "'>". $website['site']."</option>";
          }
-         $dropDown .="</option>";
+         $dropDown .="</select>";
      }
      else
      {
@@ -126,7 +119,7 @@ function DropDown($db)
         die($e);
     }
 }
-function websiteF($db, $site)
+function websiteF($db, $site)//this function will find the urls
 {
     try {
         $sql = $db->prepare("SELECT Count(*) FROM sites WHERE site=:site");
@@ -139,23 +132,23 @@ function websiteF($db, $site)
     {
         die($e);
     }
-}function getWebsite($db, $list)
+}function getWebsite($db, $list)//this will get the website and put them in the drop down list as well display the urls that have been selected.
 {
     try
     {
         $sql = $db->prepare("SELECT site_id, date FROM sites WHERE site=:list");
         $sql->bindParam(":list", $list);
         $sql->execute();
-        $websites = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $websites = $sql->fetchALL(PDO::FETCH_ASSOC);
         foreach($websites as $site) {
             echo "<br>" . "Links for " . $list . " was stored on " . $site['date'] . "<hr>";
             $urlID = $site['site_id'];
         }
-        $sql = $db->prepare("SELECT * FROM sitelinks WHERE site_id=:urlID");
+        $sql = $db->prepare("SELECT * FROM sitelinks WHERE site_id=:site_id");
         $sql->bindParam(":site_id", $urlID);
         $sql->execute();
-        $sites = $sql->fetchAll(PDO::FETCH_ASSOC);
-        foreach($sites as $site){
+        $websites = $sql->fetchALL(PDO::FETCH_ASSOC);
+        foreach($websites as $site){
             echo "<a href='" . $site['link'] . "' target='_blank'/>" . $site['link'] . "<br>";
         }
     } catch(PDOException $e){
