@@ -1,0 +1,10 @@
+.manage
+{
+padding-top: 20px;
+    border-bottom: 1px solid black;
+}
+.item h2
+{
+    font-size: 25px;
+    font-style: italic;
+}
