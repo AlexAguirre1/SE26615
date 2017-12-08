@@ -5,7 +5,7 @@
  * Date: 12/7/2017
  * Time: 4:04 PM
  */
-/*function dbconn() // this creates a connection to connect to the database with a username and password.
+function dbconn() // this creates a connection to connect to the database with a username and password.
 {
     $dsn = "mysql:host=localhost;dbname=phpclassfall2017";
     $username = "PHPClassFall2017";
@@ -18,14 +18,14 @@
         // $echo $e->getMessage(); is a method example
         die($e);
     }
-}*/
-
-$dbServerName= "localhost";
-//$dsn = "mysql:host=localhost;dbname=phpclassfall2017";
-$username = "root";
-$password = "";
-$dbName = "phpclassfall2017";
-$db = new mysqli($dbServerName, $username, $password, $dbName);
-if ($db->connect_errno) {
-    die("ERROR : -> ".$db->connect_error);
 }
+
+/*$dbServerName= "localhost";
+//$dsn = "mysql:host=localhost;dbname=phpclassfall2017";
+$username = "PHPClassFall2017";
+$password = "SE266";
+$dbName = "phpclassfall2017";
+$db = mysqli_connect($dbServerName, $username, $password, $dbName);
+if ($db=== false) {
+    die("ERROR : Could not connect ".mysqli_connect_error());
+}*/

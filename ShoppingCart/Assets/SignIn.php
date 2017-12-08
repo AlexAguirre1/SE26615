@@ -5,7 +5,68 @@
  * Date: 12/8/2017
  * Time: 12:32 AM
  */
-//session_start();
+require_once ("dbconn.php");
+$db = dbconn();
+//Variables
+$email = $password="";
+$emailErr = $passwordErr = "";
+//processes data throught submit
+if($_SERVER["REQUEST_METHOD"] == "POST")
+{
+    //check if email is empty
+    if(empty(trim($_POST["email"])))
+    {
+        $emailErr = "please enter in email";
+    }else{
+        $email = trim($_POST["email"]);
+    }
+    //check if password is empty
+    if(empty(trim($_POST['password']))){
+        $passwordErr = 'Please enter your password.';
+    } else{
+        $password = trim($_POST['password']);
+    }
+
+    if(empty($emailErr) && empty($passwordErr))
+    {
+        $sql = "SELECT email, password FROM users WHERE email=:email";
+        if($stmt = $db->prepare($sql))
+        {
+            $stmt->bindParam(':email', $pEmail, PDO::PARAM_STR);
+            //mysqli_stmt_bind_param($stmt, "s", $pEmail);
+            $pEmail = trim($_POST["email"]);
+                if($stmt->execute())
+                {
+                    //mysqli_stmt_store_result($stmt);
+                    if($stmt->rowCount() == 1)
+                    {
+                        //mysqli_stmt_bind_result($stmt, $email, $hashedPass);
+                        if($rows= $stmt->fetch())
+                        {
+                            $hashedPass = $rows['password'];
+                            if(password_verify($password, $hashedPass))
+                            {
+                                session_start();
+                                $_SESSION['email'] = $email;
+                                header("Location: Assets/AdminPage.php");
+                            }else{
+                                $passwordErr = "The password was incorrect";
+                            }
+
+                        }
+
+                    }else{
+                        $emailErr = "email was incorrect";
+                    }
+                }else{
+                    echo "something went wrong!";
+                }
+        }
+        unset($stmt);
+    }
+    unset($db);
+}
+/*session_start();
 require_once ("dbconn.php");
 if(isset($_SESSION['USession'])!="")
 {
@@ -32,7 +93,7 @@ if(isset($_POST['login'])) {
         $message = "Invalid Email or Password";
     }
     $db->close();
-}
+}*/
 
 ?>
 <style>
@@ -52,13 +113,13 @@ if(isset($_POST['login'])) {
     <form method="post" >
         <!--Company's Name: <input type="text" name="corp" value='' /><br />-->
         <div class="positionTB">
-            <b>Email:</b> <input type="text" name="email" value='' class="textBox" /><br />
+            <b>Email:</b> <input type="text" name="email" value='' class="textBox" /><?php echo $emailErr ?><br />
         </div>
         <!--Zipcode: <input type="text" name="zipcode" value='' /><br />-->
         <div class="positionTB">
-            <b>Password:</b> <input type="text" name="password" value='' class="textBox" /><br />
+            <b>Password:</b> <input type="text" name="password" value='' class="textBox" /><?php echo $passwordErr ?><br />
         </div>
         <!--Phone: <input type="text" name="phone" value=''/><br />-->
-        <input type="submit" name="login" value="Login" />
+        <input type="submit" name="submit" value="submit" />
     </form>
 </div>

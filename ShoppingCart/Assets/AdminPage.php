@@ -5,6 +5,11 @@
  * Date: 12/7/2017
  * Time: 8:03 PM
  */
+session_start();
+if(!isset($_SESSION['email']) || empty($_SESSION['email'])){
+    header("location: ..\index.php");
+    exit;
+}
 //echo "Welcome to the Admin Page, coming Soon.";
 /*session_start();
 require_once ("dbconn.php");

@@ -5,31 +5,118 @@
  * Date: 12/7/2017
  * Time: 4:22 PM
  */
-session_start();
+/*session_start();
 if(isset($_SESSION['USession'])!="")
 {
     header("Location: AdminPage.php");
-}
+}*/
 require_once ("dbconn.php");
-if(isset($_POST['register']))
+$db = dbconn();
+//Variables
+$email = $password =$passwordC = "";
+$emailErr = $passwordErr = $passwordCErr = "";
+//processes data when submitted
+if($_SERVER["REQUEST_METHOD"] == "POST")
+{
+    //validate if empty
+    if(empty(trim($_POST["email"])))
+    {
+        $emailErr = "Enter in an email";
+    }else{
+        $sql = "SELECT user_id FROM users WHERE email =:email";
+        if($stmt =$db->prepare($sql))
+        {
+            $stmt->bindParam(':email', $pEmail, PDO::PARAM_STR);
+            $pEmail = trim($_POST["email"]);
+            if($stmt->execute())
+            {
+                //mysqli_stmt_store_result($stmt);
+                if($stmt->rowCount() == 1)
+                {
+                    $emailErr = "This email has been taken";
+                }else{
+                    $email = trim($_POST["email"]);
+                }
+            }else{
+                echo "something went wrong";
+            }
+        }
+        unset($stmt);
+    }
+    //Validate Password
+    if(empty(trim($_POST['password'])))
+    {
+        $passwordErr = "Please enter in a password";
+    }elseif(strlen(trim($_POST['password'])) < 3)
+    {
+        $passwordErr = "Password needs to be at least 3 letters";
+    }else{
+        $password = trim($_POST['password']);
+    }
+    //Validate Confirm Password
+    if(empty(trim($_POST["passwordC"])))
+    {
+        $passwordCErr = "confirm the Passwords";
+    }else{
+        $passwordC = trim($_POST['passwordC']);
+        if($password != $passwordC)
+        {
+            $passwordCErr = 'Passwords did not match!';
+        }
+    }
+    if(empty($emailErr) && empty($passwordErr) && empty($passwordCErr))
+    {
+        $sql = "INSERT INTO users (email, password) VALUES (:email, :password)";
+        if($stmt = $db->prepare($sql))
+        {
+            //mysqli_stmt_bind_param($stmt, "ss", $pEmail, $pPassword);
+           // mysqli_stmt_bind_param($stmt,"ss",$pEmail,$pPassword);
+            $stmt->bindParam(':email', $pEmail, PDO::PARAM_STR);
+            $stmt->bindParam(':password', $pPassword, PDO::PARAM_STR);
+
+            $pEmail = $email;
+            $pPassword = password_hash($password,PASSWORD_DEFAULT);//hashes the password
+
+            if($stmt->execute())
+            {
+                header("Location: SignIn.php");//brings them to the login page so they can sign in.
+            }else{
+                echo"something went wrong";
+            }
+
+        }
+        unset($stmt);
+    }
+    unset($db);
+}
+/*if(isset($_POST['register']))
 {
     $email = strip_tags($_POST['email']);
     $password = strip_tags($_POST['password']);
-    //$email = strip_tags($_POST['email']);
+    $passwordC = strip_tags($_POST['passwordC']);
 
     $email = $db->real_escape_string($email);
     $password = $db->real_escape_string($password);
-    //$email = $db->real_escape_string($email);
+    $passwordC = $db->real_escape_string($passwordC);
     $hashedP = password_hash($password, PASSWORD_DEFAULT);
 
-    $EmailCheck = $db-> query("SELECT * FROM users WHERE email='$email'");
-    $Count = $EmailCheck->num_rows;
+    $EmailCheck = $db->prepare("SELECT email FROM users WHERE email = :email");
+    $EmailCheck->bindParam(':email', $email);
+    $EmailCheck->execute();
+    $Count = $EmailCheck->rowCount();
 
     if($Count == 0)
     {
-        $query = "INSERT INTO users(email, password, now()) VALUES(NULL ,'$email', '$hashedP')";
+        $date = new DateTime('now');
+        $created = $date->format('Y-m-d H:i:s');
+        $sql = $db->prepare("INSERT INTO users VALUES (null, :email, :password, :created)");
+        $sql->bindParam(':email', $email);
+        $sql->bindParam(':password', $password);
+        $sql->bindParam(':created', $created);
+        $sql->execute();
+        //$query = "INSERT INTO users(email, password, now()) VALUES('$email', '$hashedP')";
 
-        if($db->query($query))
+        if($sql)
         {
             $message = "You were Just registered";
         }else{
@@ -40,6 +127,7 @@ if(isset($_POST['register']))
     }
     $db->close();
 }
+
 //{
   //  if($_POST['action']=="Login")
   //  {
@@ -141,18 +229,19 @@ if (isset($message)) {
 
 <div class="manage">
 
-    <form method="post" >
+    <form method="post"  >
         <div class="positionTB">
-        <b>Email:</b> <input type="text" name="email" value='' required="" class="textBox"/><br />
+        <b>Email:</b> <input type="text" name="email" value=''  class="textBox"/><?php echo $emailErr ?><br />
         </div>
 
         <div class="positionTB">
-        <b>Password:</b> <input type="text" name="password" value='' required="" class="textBox"/><br />
+        <b>Password:</b> <input type="text" name="password" value=''  class="textBox"/><?php echo $passwordErr ?><br />
         </div>
         <div class="positionTB">
-            <b>Confirm Password:</b> <input type="text" name="passwordC" value='' required="" class="textBox"/><br />
+            <b>Confirm Password:</b> <input type="text" name="passwordC" value=''  class="textBox"/><?php echo $passwordCErr ?><br />
         </div>
-            <input type="submit" name="register" value="register" />
+            <input type="submit" name="submit" value="submit" />
     </form>
 
 </div>
+<a href="../index.php">SignIn</a><!-- will allow to go back to the sign in page-->

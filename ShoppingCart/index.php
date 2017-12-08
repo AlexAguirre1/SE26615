@@ -6,5 +6,8 @@
  * Time: 4:03 PM
  */
 require_once ("Assets/dbconn.php");
-include_once("Assets/Signup.php");
+$db=dbconn();
+//include_once("Assets/Signup.php");
 include_once("Assets/SignIn.php");
+?>
+<a href="Assets/Signup.php">Register</a>
