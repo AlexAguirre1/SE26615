@@ -22,11 +22,10 @@
 
 $dbServerName= "localhost";
 //$dsn = "mysql:host=localhost;dbname=phpclassfall2017";
-$username = "PHPClassFall2017";
-$password = "SE266";
+$username = "root";
+$password = "";
 $dbName = "phpclassfall2017";
-$db = mysqli_connect($dbServerName, $username, $password, $dbName);
-if(!$db)
-{
-    die("connection failed: " .mysqli_connect_error());
+$db = new mysqli($dbServerName, $username, $password, $dbName);
+if ($db->connect_errno) {
+    die("ERROR : -> ".$db->connect_error);
 }

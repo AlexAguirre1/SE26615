@@ -6,4 +6,5 @@
  * Time: 4:03 PM
  */
 require_once ("Assets/dbconn.php");
-include_once("Assets/Signup_Login.php");
+include_once("Assets/Signup.php");
+include_once("Assets/SignIn.php");
