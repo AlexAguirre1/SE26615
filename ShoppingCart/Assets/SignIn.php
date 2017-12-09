@@ -5,6 +5,8 @@
  * Date: 12/8/2017
  * Time: 12:32 AM
  */
+/*If the user has an acount/email and pssword saved they can login to the admin page. but if not then they wont be able to login,
+The email must match the password you entereed when signed up.*/
 require_once ("dbconn.php");
 $db = dbconn();
 //Variables
@@ -48,7 +50,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
                             {
                                 session_start();
                                 $_SESSION['email'] = $email;
-                                header("Location: Assets/AdminPage.php");
+                                header("Location: AdminPage.php");
                             }else{
                                 $passwordErr = "The password was incorrect";
                             }
@@ -120,6 +122,9 @@ if(isset($_POST['login'])) {
             <b>Password:</b> <input type="text" name="password" value='' class="textBox" /><?php echo $passwordErr ?><br />
         </div>
         <!--Phone: <input type="text" name="phone" value=''/><br />-->
-        <input type="submit" name="submit" value="submit" />
+        <input class="button1" type="submit" name="submit" value="submit" />
     </form>
 </div>
+<footer>
+    Copyright &copy; <?php echo date('Y'); ?> Alex Aguirre. All Rights Reserved. <!-- this is a footer at the bottom of the html code when it is being display-->
+</footer>

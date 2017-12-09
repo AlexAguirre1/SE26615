@@ -7,7 +7,8 @@
  */
 require_once ("Assets/dbconn.php");
 $db=dbconn();
-//include_once("Assets/Signup.php");
-include_once("Assets/SignIn.php");
+include_once("Assets/Signup.php");
+//include_once("Assets/SignIn.php");
 ?>
-<a href="Assets/Signup.php">Register</a>
+<!--<a href="Assets/Signup.php">Register</a>-->
+<!--<a href="ShoppingPage.php">Shopping</a>-->

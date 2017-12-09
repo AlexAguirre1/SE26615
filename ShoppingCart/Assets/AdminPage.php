@@ -5,6 +5,7 @@
  * Date: 12/7/2017
  * Time: 8:03 PM
  */
+/*the only thing that works is Adding the category, was running out of time, so i did what i could do.*/
 require_once ("dbconn.php");
 include_once ("Functions.php");
 $db=dbconn();
@@ -12,14 +13,14 @@ $action= filter_input(INPUT_POST, 'action',FILTER_SANITIZE_STRING) ?? filter_inp
 $Cate= filter_input(INPUT_POST, 'CName',FILTER_SANITIZE_STRING) ?? "";
 $id =filter_input(INPUT_POST, 'id',FILTER_SANITIZE_STRING) ?? filter_input(INPUT_GET, 'id',FILTER_SANITIZE_STRING) ?? "";
 
-session_start();
+session_start();//starts a session
 if(!isset($_SESSION['email']) || empty($_SESSION['email'])){
     header("location: ..\index.php");
     exit;
 }
 
 
-switch($action)
+switch($action)// switch case that will allow to do the following add,delete etc..
 {
     case "Add":
         AddCategories($db,$Cate);
@@ -66,17 +67,20 @@ $db->close();*/
 </form>
 <form method="post" action="#">
 <div class="manage">
-<label>Category Name</label>: <input type="text" name="CName" value='' required="" class="textBox"/><br />
+<label>Category Name</label>: <input type="text" name="CName" value=''  class="textBox"/><br />
     <input type="submit" name="action" value="Add" />
 </div>
 </form>
 <br />
 <form method="post" action="#">
-<label>Product Name</label>: <input type="text" name="PName" value='' required="" class="textBox"/><br />
+<label>Product Name</label>: <input type="text" name="PName" value='' class="textBox"/><br />
 <!-- Drop Down list for Products should go right-->
 <div class="manage">
-<label>Price $</label>: <input type="text" name="Price" value='' required="" class="textBox"/><br />
+<label>Price $</label>: <input type="text" name="Price" value=''  class="textBox"/><br />
     <input type="submit" name="action" value="Choose Image" />
     <input type="submit" name="action" value="Add Product" />
 </div>
 </form>
+<footer>
+    Copyright &copy; <?php echo date('Y'); ?> Alex Aguirre. All Rights Reserved. <!-- this is a footer at the bottom of the html code when it is being display-->
+</footer>

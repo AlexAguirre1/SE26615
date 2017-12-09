@@ -5,12 +5,14 @@
  * Date: 12/7/2017
  * Time: 4:22 PM
  */
+/* This will allow the user to sign in if they dont have an account with this website, once you sign up it will bring you to the sign in page where you can sign in with the email and password to
+ go to the admin page, so remeber what you type in.*/
 /*session_start();
 if(isset($_SESSION['USession'])!="")
 {
     header("Location: AdminPage.php");
 }*/
-require_once ("dbconn.php");
+require_once ("dbconn.php");//allows connection with database
 $db = dbconn();
 //Variables
 $email = $password =$passwordC = "";
@@ -79,7 +81,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 
             if($stmt->execute())
             {
-                header("Location: SignIn.php");//brings them to the login page so they can sign in.
+                header("Location: Assets/SignIn.php");//brings them to the login page so they can sign in.
             }else{
                 echo"something went wrong";
             }
@@ -212,6 +214,7 @@ else
    // exit();
 }*/
 ?>
+<!--this is the style sheet for some button, text box, alerts etc...-->
 <style>
 <?php include("stylesheet.css") ?>
 </style>
@@ -229,7 +232,7 @@ if (isset($message)) {
 
 <div class="manage">
 
-    <form method="post"  >
+    <form method="post" >
         <div class="positionTB">
         <b>Email:</b> <input type="text" name="email" value=''  class="textBox"/><?php echo $emailErr ?><br />
         </div>
@@ -240,8 +243,11 @@ if (isset($message)) {
         <div class="positionTB">
             <b>Confirm Password:</b> <input type="text" name="passwordC" value=''  class="textBox"/><?php echo $passwordCErr ?><br />
         </div>
-            <input type="submit" name="submit" value="submit" />
+            <input class="button1" type="submit" name="submit" value="submit" />
     </form>
 
 </div>
-<a href="../index.php">SignIn</a><!-- will allow to go back to the sign in page-->
+<a href="Assets/SignIn.php">SignIn</a><!-- will allow to go back to the sign in page-->
+<footer>
+    Copyright &copy; <?php echo date('Y'); ?> Alex Aguirre. All Rights Reserved. <!-- this is a footer at the bottom of the html code when it is being display-->
+</footer>

@@ -8,6 +8,11 @@ padding-top: 20px;
     font-size: 25px;
     font-style: italic;
 }
+.item h3
+{
+    font-size: 50px;
+    font-family: "Times New Roman", Times, serif;
+}
 .errorMessages
 {
     color:#FF0000;
@@ -33,4 +38,10 @@ padding-top: 20px;
 .container
 {
     padding:15px;
+}
+.button1
+{
+    background-color: #4CAF50;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    border-radius: 12px;
 }
